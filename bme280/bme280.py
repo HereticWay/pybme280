@@ -1,4 +1,4 @@
-from sensorconfig import SensorConfig, OperationMode, OversamplingMode
+from bme280.sensorconfig import SensorConfig, OperationMode, OversamplingMode
 import smbus2
 import time
 
@@ -26,11 +26,11 @@ class BME280:
                  sensor_config: SensorConfig = SensorConfig()
                  ) -> None:
 
-        if i2c_address is not int or i2c_address < 0:
+        if type(i2c_address) is not int or i2c_address < 0:
             raise ValueError("i2c_address should be a positive integer!")
-        if i2c_port is not int or i2c_port < 0:
+        if type(i2c_port) is not int or i2c_port < 0:
             raise ValueError("i2c_port should be a positive integer!")
-        if sensor_config is not SensorConfig:
+        if type(sensor_config) is not SensorConfig:
             raise ValueError("sensor_config should be a SensorConfig object!")
 
         self._i2c_address = i2c_address
