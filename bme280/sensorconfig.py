@@ -62,7 +62,7 @@ class SensorConfig:
                  pressure_oversampling_mode: OversamplingMode = OversamplingMode.X16,
                  humidity_oversampling_mode: OversamplingMode = OversamplingMode.X1,
                  iir_filter_coefficient: IIRFilterCoefficient = IIRFilterCoefficient.X16,
-                 standby_interval: StandbyInterval = StandbyInterval.INT_1000_MS
+                 standby_interval: StandbyInterval = StandbyInterval.INT_125_MS
                  ) -> None:
         self.set_operation_mode(operation_mode)
         self.set_temperature_oversampling_mode(temperature_oversampling_mode)
