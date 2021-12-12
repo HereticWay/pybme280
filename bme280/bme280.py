@@ -1,5 +1,5 @@
 from sensorconfig import SensorConfig, OperationMode, OversamplingMode
-import smbus
+import smbus2
 import time
 
 _CHIP_ID_REG = 0xD0
@@ -16,7 +16,7 @@ class BME280:
     )
 
     _i2c_address: int
-    _smbus: smbus.SMBus
+    _smbus: smbus2.SMBus
     _sensor_config: SensorConfig
     _chip_id: int
 
@@ -34,7 +34,7 @@ class BME280:
             raise ValueError("sensor_config should be a SensorConfig object!")
 
         self._i2c_address = i2c_address
-        self._smbus = smbus.SMBus(i2c_port)
+        self._smbus = smbus2.SMBus(i2c_port)
         self._sensor_config = sensor_config
 
         self._chip_id = self._smbus.read_byte_data(self._i2c_address, _CHIP_ID_REG)
