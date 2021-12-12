@@ -1,7 +1,10 @@
 from sensorconfig import SensorConfig, OperationMode, OversamplingMode
 import smbus
+import time
 
 _CHIP_ID_REG = 0xD0
+_RESET_REG = 0xE0
+_RESET_KEYWORD = 0xB6
 
 
 class BME280:
@@ -38,10 +41,15 @@ class BME280:
         self._init_sensor()
 
     def _init_sensor(self) -> None:
-        pass
+        self._reset_sensor()
 
     def _reset_sensor(self) -> None:
-        pass
+        self._write_register(_RESET_REG, _RESET_KEYWORD)
+        time.sleep(0.002)  # Wait for the IC to start up (2ms)
+
+    def _write_register(self, register: int, data: int):
+        address = self._i2c_address
+        self._smbus.write_byte_data(address, register, data)
 
     def chip_id(self) -> int:
         return self._chip_id
