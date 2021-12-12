@@ -118,3 +118,19 @@ class SensorConfig:
 
     def standby_interval(self) -> StandbyInterval:
         return self._standby_interval
+
+    def build_reg_ctrl_meas(self) -> int:
+        mode = self.operation_mode().value
+        osrs_p = self.pressure_oversampling_mode().value << 2
+        osrs_t = self.temperature_oversampling_mode().value << 5
+        return mode | osrs_p | osrs_t
+
+    def build_reg_ctrl_hum(self) -> int:
+        return self.humidity_oversampling_mode().value
+
+    def build_reg_config(self) -> int:
+        spi3w_en = 0  # Disable 3-wire SPI
+        filter_ = self.iirc_filter_coefficient().value << 1
+        t_sb = self.standby_interval().value << 4
+        return spi3w_en | filter_ | t_sb
+
